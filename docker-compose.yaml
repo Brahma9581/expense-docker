@@ -1,0 +1,27 @@
+version: "3"
+networks:
+  expense:
+volumes:
+  mysql:
+
+services:
+  mysql:
+    image: #from my docker registry
+    container_name: mysql # (--name)
+    volumes:
+    - mysql:/var/lib/sql
+  backend:
+    image: #
+    container_name: backend
+    command: sh -c "sleep 5 && node /opt/server/index.js"
+    depends_on:
+    - mysql
+  frontend:
+    image: #
+    container_name: frontend
+    ports:
+    - 80:80
+    depends_on:
+    - backend
+
+
